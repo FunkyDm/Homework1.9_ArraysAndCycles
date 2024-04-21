@@ -6,8 +6,14 @@ public class Main {
         //Задача 1
         System.out.println("Задача 1");
 
-        int[] monthPayment = {70_000, 73_535, 71_200, 70_500, 70_255};  //массив со всеми месячными выплатами
-        int sumMonthExpenses = 0;                                       //переменная для суммы месячных выплат
+        int weekPaymentCount = 5;                       //кол-во недель, за которые начислялись выплаты
+        int[] monthPayment = new int[weekPaymentCount]; //массив со всеми месячными выплатами
+        monthPayment[0] = 70_000;
+        monthPayment[1] = 73_535;
+        monthPayment[2] = 71_200;
+        monthPayment[3] = 70_500;
+        monthPayment[4] = 70_255;
+        int sumMonthExpenses = 0;                       //переменная для суммы месячных выплат
         for(int payment : monthPayment){
             sumMonthExpenses += payment;
         }
@@ -16,10 +22,24 @@ public class Main {
         //Задача 2
         System.out.println("Задача 2");
 
-        monthPayment = new int[]{70_500, 73_535, 71_200, 70_000, 70_255};   //массив со всеми месячными выплатами
+        monthPayment = new int[weekPaymentCount];                           //кол-во недель не изменилось, берем из предыдущей задачи
+        monthPayment[0] = 70_700;
+        monthPayment[1] = 73_535;
+        monthPayment[2] = 71_200;
+        monthPayment[3] = 70_500;
+        monthPayment[4] = 70_255;
         int minPayment = 0;                                                 //переменная для значения минимальной месячной выплаты
         int maxPayment = 0;                                                 //переменная для значения максимальной месячной выплаты
-        Arrays.sort(monthPayment);                                          //сортируем массив по возрастанию
+        //Arrays.sort(monthPayment);                                        //сортируем массив по возрастанию
+        for (int i = 0; i < monthPayment.length - 1; i++){                  //сортируем массив по возрастанию методом сортировки пузырьком
+            for (int j = 0; j < monthPayment.length - i - 1; j++){
+                if (monthPayment[j + 1] < monthPayment[j]){
+                    int tempVariable = monthPayment[j];
+                    monthPayment[j] = monthPayment[j + 1];
+                    monthPayment[j + 1] = tempVariable;
+                }
+            }
+        }
         minPayment = monthPayment[0];
         maxPayment = monthPayment[monthPayment.length - 1];
         System.out.println("Минимальная сумма трат за неделю составила " + minPayment + " рублей.");
@@ -28,7 +48,12 @@ public class Main {
         //Задача 3
         System.out.println("Задача 3");
 
-        monthPayment = new int[]{70_553, 73_537, 71_289, 70_000, 70_255};   //массив со всеми месячными выплатами
+        monthPayment = new int[weekPaymentCount];                           //кол-во недель не изменилось, берем из предыдущих задачи
+        monthPayment[0] = 70_000;
+        monthPayment[1] = 73_535;
+        monthPayment[2] = 71_200;
+        monthPayment[3] = 70_500;
+        monthPayment[4] = 70_255;
         double averageValue = 0;                                            //переменная для среднего значения трат за месяц
         for (int payment : monthPayment){
             averageValue += payment;
